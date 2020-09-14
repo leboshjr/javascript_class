@@ -1,5 +1,5 @@
 //declare the variable for success Message
-const successMsg = "Success! Number has be recharged";
+const successMsg = "Success! Number has been recharged";
 
 //declare a variable for the initial prompt
 var enterNum = prompt ("Welcome to TIIDELab quickteller:\n \n1. Airtime-Self\n2. Airtime-Others\n3. Data\n4. Transfer");
