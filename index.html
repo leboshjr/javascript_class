@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id="dynamic-table">
+
+    </section>
+
+
+
+
+    <script>
+        var arrayTable = new Array( );
+        arrayTable[0] = {
+            id: "",
+            name : "Tiidelab",
+            email : "hello@tiidelab.com",
+            phone : "070733445566",
+            location : "Abuja"
+        };
+        arrayTable[1] = {
+            id: "",
+            name : "Google",
+            email : "hello@google.com",
+            phone : "070733445566",
+            location : "Abuja"
+        };
+        arrayTable[2] = {
+            id: "",
+            name : "Uber",
+            email : "hello@uber.com",
+            phone : "070733445566",
+            location : "Abuja"
+        };
+
+        tableKeys = Object.keys(arrayTable[0]);
+        output = `
+        <table>
+            <tr>
+                <th>S/N</th>
+                <th>Company Name</th>
+                <th>Company Email</th>
+                <th>Company Phone</th>
+                <th>Location</th>
+            </tr>
+            <tbody>
+        `;
+        for(i=0; i<arrayTable.length; i++) {
+            output += `<tr>
+                <td>${i+1}</td>
+                <td>${arrayTable[i].name}</td>
+                <td>${arrayTable[i].email}</td>
+                <td>${arrayTable[i].phone}</td>
+                <td>${arrayTable[i].location}</td>
+            </tr>`;
+        }
+        output += `
+        </tbody>   
+        </table>
+        `;
+        
+        document.getElementById("dynamic-table").innerHTML = output;
+
+        
+    </script>
+</body>
+</html>
