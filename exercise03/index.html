@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Array objects Table</title>
 
+    <!-- CSS internal stylesheet -->
     <style>
         html {
             font-family: Arial, Helvetica, sans-serif;
@@ -38,15 +39,18 @@
     </style>
 </head>
 <body>
+    <!-- Table Container -->
     <section id="dynamic-table">
 
     </section>
 
 
 
-
+    <!-- Internal Script -->
     <script>
+        // declaring the array
         var arrayTable = new Array( );
+        // declaring the array objects
         arrayTable[0] = {
             id: "",
             name : "Tiidelab",
@@ -76,7 +80,8 @@
             location : "USA"
         };
 
-        tableKeys = Object.keys(arrayTable[0]);
+        // Declaring the table output variable
+            // Table head first
         output = `
         <table align="center">
             <tr>
@@ -88,6 +93,8 @@
             </tr>
             <tbody>
         `;
+        //Updating the table output variable with the table body
+            //looping through each object of the array
         for(i=0; i<arrayTable.length; i++) {
             output += `<tr>
                 <td>${i+1}</td>
@@ -97,11 +104,14 @@
                 <td>${arrayTable[i].location}</td>
             </tr>`;
         }
+
+        // Updating the table output variable with the closing tag
         output += `
         </tbody>   
         </table>
         `;
         
+        // Inserting the table output variable into the container section of the HTML
         document.getElementById("dynamic-table").innerHTML = output;
 
         
