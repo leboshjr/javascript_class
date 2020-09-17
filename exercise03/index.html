@@ -3,7 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JavaScript Array objects Table</title>
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #030116;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #7B68EE;
+        }
+
+        tr {
+            background-color: #C5BCFF;
+        }
+
+        tr:nth-child(even) {
+            background-color: #A596FF;
+        }
+
+        tr:hover {
+            background: #E6E2FF;
+        }
+
+        th, td{
+            border-bottom: 1px solid white;
+            padding: 0.4rem;
+        }
+    </style>
 </head>
 <body>
     <section id="dynamic-table">
@@ -20,26 +52,33 @@
             name : "Tiidelab",
             email : "hello@tiidelab.com",
             phone : "070733445566",
-            location : "Abuja"
+            location : "Nigeria"
         };
         arrayTable[1] = {
             id: "",
             name : "Google",
             email : "hello@google.com",
-            phone : "070733445566",
-            location : "Abuja"
+            phone : "081223348765",
+            location : "USA"
         };
         arrayTable[2] = {
             id: "",
             name : "Uber",
             email : "hello@uber.com",
-            phone : "070733445566",
-            location : "Abuja"
+            phone : "070987654321",
+            location : "USA"
+        };
+        arrayTable[3] = {
+            id: "",
+            name : "Microsoft",
+            email : "hello@micrcsoft.com",
+            phone : "070123456789",
+            location : "USA"
         };
 
         tableKeys = Object.keys(arrayTable[0]);
         output = `
-        <table>
+        <table align="center">
             <tr>
                 <th>S/N</th>
                 <th>Company Name</th>
