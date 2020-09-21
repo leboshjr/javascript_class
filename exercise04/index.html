@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 Javascript Class</title>
+
+    <!-- Internal Stylesheet -->
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)) , url(./background-img.jpg) no-repeat center;
+            background-size: cover;
+            color: white;
+        }
+        /* styling the data cards container */
+        #users{
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            margin: 0 auto;
+            justify-content: space-between;
+        }
+        /* styling the data cards */
+        #users .data-container {
+            display: flex;
+            width: 350px;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #500a0a;
+            border-radius: 1rem;
+            justify-content: space-around;
+            align-items: stretch;
+        }
+        #users .data-container:hover {
+            background: cornsilk;
+            color: #220404;
+        }
+        #users .data-container div {
+            align-items: center;
+            width: 60%;
+        }
+        .data-container div button {
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 1rem;
+        }
+        .data-container div button:focus {
+            outline: none;
+        }
+        .data-container div button:focus,
+        .data-container div button:hover {
+            -webkit-box-shadow: 2px 0px 6px 2px rgba(34,4,4,1);
+            -moz-box-shadow: 2px 0px 6px 2px rgba(34,4,4,1);
+            box-shadow: 2px 0px 6px 2px rgba(34,4,4,1);
+            font-weight: bold;
+        }
+        /* Styling the Add New User Button */
+        .add-btn {
+            display: block;
+            margin: 0 auto;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            color: #220404;
+            background-color: cornsilk;
+        }
+        .add-btn:focus {
+            outline: none;
+        }
+        .add-btn:hover {
+            box-shadow: 2px 1px 6px 2px rgb(247, 111, 111);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <main>
+        <div id="users">
+
+        </div>
+        <button onclick="addUser()" class="add-btn">Add New User</button>
+    </main>
+
+
+    <script>
+        // Declaring the Internal users array
+        internalUsers = new Array ( );
+        internalUsers[0] = {
+            pics : "1.jpg",
+            name : "Andeh Jane",
+            phone : "07067977733",
+            email : "andehjane@gmail.com"
+        }
+        internalUsers[1] = {
+            pics : "2.jpg",
+            name : "Diogu Maxwell",
+            phone : "08012345678",
+            email : "diogumaxwell@gmail.com"
+        }
+        internalUsers[2] = {
+            pics : "3.jpg",
+            name : "Onyedikachi Ibeabuchi",
+            phone : "09098765432",
+            email : "onyedikachi@gmail.com"
+        }
+
+        // Declaring the global user variables
+        var profilePicture = "Enter a number (4 - 10):";
+        var yourName = "Enter your full name:";
+        var phoneNumber = "Enter your phone number:";
+        var emailAddress = "Enter your email address:";
+
+        // Declaring the Add new User function
+        function addUser() {
+            // Do-while statements for validation of user data
+            do {
+                profilePic = Number(prompt(profilePicture));
+            }
+            while ((Number.isNaN(profilePic)) || (!profilePic));
+            profilePic += ".jpg";
+
+            do {
+                profileName = prompt(yourName);
+            }
+            while (!profileName);
+
+            do {
+                phoneNum = Number(prompt(phoneNumber));
+            }
+            while ((Number.isNaN(phoneNum)) || (!phoneNum))
+
+            do {
+                emailAdd = prompt (emailAddress)
+            }
+            while ((!emailAdd));
+            // Declaring the new user object
+            user = {
+                pics : profilePic,
+                name : profileName,
+                phone : phoneNum,
+                email : emailAdd
+            }
+            // Adding the new Object to the old array
+            internalUsers.push(user);
+            listUsers();
+        }
+        // declaring the delete user function
+        function deleteUser(index) {
+            internalUsers.splice(index, 1);
+            listUsers();
+        }
+        // declaring the edit user data function
+        function editUser(index) {
+            // do-while statements for validation of user data
+            do {
+                profilePic = prompt(profilePicture, internalUsers[index].pics);
+            }
+            while (!profilePic);
+
+            do {
+                profileName = prompt(yourName, internalUsers[index].name);
+            }
+            while (!profileName);
+
+            do {
+                phoneNum = Number(prompt(phoneNumber, internalUsers[index].phone));
+            }
+            while ((Number.isNaN(phoneNum)) || (!phoneNum))
+
+            do {
+                emailAdd = prompt (emailAddress, internalUsers[index].email)
+            }
+            while ((!emailAdd));
+            // adding the updated data to the old array object
+            internalUsers[index] = {
+            pics : profilePic,
+            name : profileName,
+            phone : phoneNum,
+            email : emailAdd
+            }
+            listUsers();
+        }
+        // declaring the function that updates array objects into the html document   
+        function listUsers() {
+            output = ``;
+            
+            for(i=0; i<internalUsers.length; i++){
+
+                output += 
+                `<div class="data-container">
+                <img src="${internalUsers[i].pics}" style="width:33%;">
+                <div>
+                <p><strong>Full Name</strong> : ${internalUsers[i].name}</p>
+                <p><strong>Phone Number</strong> : ${internalUsers[i].phone}</p>
+                <p><strong>Email Address</strong> : ${internalUsers[i].email}</p>
+                <button onclick="deleteUser(${i})" style="background: red; color:#fff;">Delete</button>
+                <button onclick="editUser(${i})" style="background: green; color:#fff;">Edit</button>
+                </div>
+                </div>`;
+            }
+
+            document.getElementById("users").innerHTML = output;
+        }
+
+        listUsers();
+    </script>
+</body>
+</html>
