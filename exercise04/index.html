@@ -72,7 +72,6 @@
             box-shadow: 2px 1px 6px 2px rgb(247, 111, 111);
             font-weight: bold;
         }
-
         /* Styling the form modal */
         .form-reveal {
             display: none;
@@ -86,7 +85,6 @@
             overflow: auto;
             background-color: rgba(34,4,4,0.8);
         }
-
         /*Styling the Add User and Edit User form */
         .form-insert {
             max-width: 300px;
@@ -109,7 +107,6 @@
             border-radius: 10px;
             padding: 8px 12px;
         }
-
         .form-insert button{
             margin: 10px auto 0;
             padding: 8px;
@@ -117,29 +114,23 @@
             color: #fff;
             border: none;
         }
-
         .form-insert button:first-of-type {
             background-color: green;
         }
         .form-insert button:last-of-type {
             background-color: red;
         }
-
     </style>
 </head>
 <body>
-    
     <main>
-        <div id="users">
-
-        </div>
-
+        <!-- Container for the users data cards-->
+        <div id="users"></div>
+        <!-- Container for the form modal -->
         <div id="user-form"></div>
-
-        <button onclick="openForm('addUser')" class="add-btn">Add New User</button>
-        
+        <!-- Buttons for adding new user -->
+        <button onclick="openForm('addUser')" class="add-btn">Add New User</button>       
     </main>
-
 
     <script>
         // Declaring the Internal users array
@@ -162,17 +153,19 @@
             phone : "09098765432",
             email : "onyedikachi@gmail.com"
         }
-
         // localStorage.setItem("internalUsers", JSON.stringify(internalUsers));
-
+        
+        // converting the stored data to an object
         internalUsers = JSON.parse(localStorage.getItem("internalUsers"));
 
+        // checking and assigning a new array if no data is in the local storage
         if(internalUsers == null) {
-            internalUsers = []; //assign an empty array if no data present
+            internalUsers = [];
         }
 
         // declaring the delete user function
         function deleteUser(index) {
+            // confirmation before deleting
             confirmDelete = confirm(`Do you really want to delete ${internalUsers[index].name}?`)
             if(confirmDelete === true) {
                 internalUsers.splice(index, 1);
@@ -181,8 +174,9 @@
             }
         }
 
-        
+        // declaring the user forms (Add user and Edit user forms)
         function userForm (formUse, index) {
+            // the form for add user
             if(formUse === "addUser") {
                 userDetails = `<div class="form-reveal" id="form-container">
                     <form class="form-insert" id="insert-form" onSubmit="addUser()">
@@ -198,6 +192,7 @@
                 </div>`;
             }
             else {
+                // the form for other form use i.e edit user
                 userDetails = `<div class="form-reveal" id="form-container">
 				    <form class="form-insert" id="insert-form" onSubmit="editUser(${index});">
                         <h4>Edit User</h4>
@@ -211,18 +206,21 @@
                     </form>
                 </div>`;
             }
+            // inserting the desired form into the form modal
             document.getElementById("user-form").innerHTML = userDetails;
         }
 
+        // declaring the function for revealing the form modal
         function openForm(userfunction, index) {
   	        userForm(userfunction, index);
 	        document.getElementById("form-container").style.display = "block";
         }
-
+        // declaring the function for closing the form modal
         function cancelForm() {
             document.getElementById("form-container").style.display = "none";
         }
 
+        // declaring the function for calling the edit user form
         function editOneUser(index) {
             openForm("editUser", index);
         }
@@ -257,7 +255,7 @@
             listUsers();
         }
         
-        // declaring the function that updates array objects into the html document   
+        // declaring the function that displays array objects in the html document   
         function listUsers() {
             output = ``;
             
@@ -276,6 +274,7 @@
             }
             document.getElementById("users").innerHTML = output;
         }
+        // calling the function that displays array objects
         listUsers();
     </script>
 </body>

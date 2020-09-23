@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Class Wednesday</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h3>SIGN IN</h3>
+            <form action="" method="get">
+                <input type="text" id="username"><br>
+                <input type="password" id="password"><br>
+                <button onclick="addNewUser()">Sign Up</button>
+            </form>
+        </div>
+        
+        <div>
+            <h3>SIGN UP</h3>
+            <form action="" method="get">
+                <input type="text" id="name" value="" placeholder="Your full name">
+                <input type="text" id="email" placeholder="Your email">
+                <input type="text" id="phone" placeholder="Your phone">
+                <input type="text" id="pics" placeholder="Your profile picture">
+                
+                <input type="text" id="uusername"><br>
+                <input type="password" id="upassword"><br>
+                <button onclick="addNewUser()">Sign Up</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+       
+
+
+        let names = ["Shams", "Pk", "Jane", "Samuel"];
+        internalUsers = [
+            {
+                pics : "1.jpg",
+                name : "Andeh Jane",
+                phone : "07067977733",
+                email : "andehjane@gmail.com"
+            },
+            {
+                pics : "2.jpg",
+                name : "Diogu Maxwell",
+                phone : "08012345678",
+                email : "diogumaxwell@gmail.com"
+            },
+            {
+                pics : "3.jpg",
+                name : "Onyedikachi Ibeabuchi",
+                phone : "09098765432",
+                email : "onyedikachi@gmail.com"
+            }
+        ]
+
+        function findInternalUsers(name) {
+            userExist = internalUsers.find(checkName())
+
+            if (userExist == undefined) {
+                alert("Record not found")
+            } else {
+                alert("congrats!")
+            }
+        }
+
+        function checkName(internalUsers){
+            return internalUsers.name == document.getElementById("username").value;
+        }
+
+        // findInternalUsers("Onyedikachi Ibeabuchi");
+    </script>
+</body>
+</html>
