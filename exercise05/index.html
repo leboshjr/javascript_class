@@ -9,23 +9,24 @@
     <main>
         <div>
             <h3>SIGN IN</h3>
-            <form action="" method="get">
+            <form action="" method="">
                 <input type="text" id="username"><br>
                 <input type="password" id="password"><br>
-                <button onclick="addNewUser()">Sign Up</button>
+                <button onclick="findUsername()">Sign In</button>
             </form>
         </div>
         
         <div>
             <h3>SIGN UP</h3>
-            <form action="" method="get">
+            <form action="" method="">
                 <input type="text" id="name" value="" placeholder="Your full name">
                 <input type="text" id="email" placeholder="Your email">
                 <input type="text" id="phone" placeholder="Your phone">
-                <input type="text" id="pics" placeholder="Your profile picture">
+                <input type="file" id="pics" accept="image/*" placeholder="Your profile picture">
                 
-                <input type="text" id="uusername"><br>
-                <input type="password" id="upassword"><br>
+                <input type="text" id="uUsername" placeholder="Username"><br>
+                <input type="password" id="uPassword" placeholder="Password"><br>
+                <input type="password" id="cPassword" placeholder="Confirm password"><br>
                 <button onclick="addNewUser()">Sign Up</button>
             </form>
         </div>
@@ -33,32 +34,37 @@
 
     <script>
        
+       let users = JSON.parse(localStorage.getItem("internalUsers"));
+       if (users == null) {
+           users = []
+       }
 
+       function addNewUser () {
+           password = document.getElementById("uPassword").value
+           cpassword = document.getElementById("cPassword").value
+           if(password === cpassword) {
+               profilePic = document.getElementById("pics").value
+               newUser =
+               {
+                   name : document.getElementById("name").value,
+                   email : document.getElementById("email").value,
+                   phone : document.getElementById("phone").value,
+                //    pics : document.getElementById("pics").value,
+                   pics : profilePic.split("\\")[2],
+                   username : document.getElementById("uUsername").value,
+                   password : document.getElementById("uPassword").value
+               }
+            //    alert(newUser.pics.split("\\") [2]);
 
-        let names = ["Shams", "Pk", "Jane", "Samuel"];
-        internalUsers = [
-            {
-                pics : "1.jpg",
-                name : "Andeh Jane",
-                phone : "07067977733",
-                email : "andehjane@gmail.com"
-            },
-            {
-                pics : "2.jpg",
-                name : "Diogu Maxwell",
-                phone : "08012345678",
-                email : "diogumaxwell@gmail.com"
-            },
-            {
-                pics : "3.jpg",
-                name : "Onyedikachi Ibeabuchi",
-                phone : "09098765432",
-                email : "onyedikachi@gmail.com"
-            }
-        ]
+               users.push(newUser)
+               localStorage.setItem("internalUsers", JSON.stringify(users));
+           } else {
+               alert("Password does not match")
+           }
+       }
 
-        function findInternalUsers(name) {
-            userExist = internalUsers.find(checkName())
+        function findUsername() {
+            userExist = users.find(checkName)
 
             if (userExist == undefined) {
                 alert("Record not found")
@@ -67,11 +73,9 @@
             }
         }
 
-        function checkName(internalUsers){
-            return internalUsers.name == document.getElementById("username").value;
+        function checkName(object){
+            return object.password == document.getElementById("password").value;
         }
-
-        // findInternalUsers("Onyedikachi Ibeabuchi");
     </script>
 </body>
 </html>
