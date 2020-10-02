@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 7 Javascript Class</title>
+    <title>Week 8 Javascript Class</title>
 
     <!-- Internal Stylesheet -->
     <style>
@@ -16,9 +16,37 @@
         h2 {
             text-align: center;
         }
+        button:focus {
+            outline: none;
+        }
+        input:focus {
+            border: none;
+            outline: none;
+            box-shadow: 2px 1px 6px 2px rgb(247, 111, 111);
+        }
         /* Search field and buttons */
         .search {
             text-align: center;
+        }
+
+        .search-box {
+            padding: 6px;
+            background-color: cornsilk;
+            border-style: hidden;
+            border-radius: 10px;
+            color: #220404;
+        }
+
+        .search-btn {
+            background-color: #500a0a;
+            color: cornsilk;
+            border-style: none;
+            padding: 6px;
+            border-radius: 10px;
+        }
+        .search-btn:hover,
+        .search-btn:focus {
+            box-shadow: 2px 1px 6px 2px rgb(247, 111, 111);
         }
 
         #back-btn {
@@ -77,9 +105,7 @@
             color: #220404;
             background-color: cornsilk;
         }
-        .add-btn:focus {
-            outline: none;
-        }
+
         .add-btn:hover {
             box-shadow: 2px 1px 6px 2px rgb(247, 111, 111);
             font-weight: bold;
@@ -138,12 +164,12 @@
     <main>
         <div><h2 id="heading">User Profiles</h2></div>
         <div class="search">
-            <input type="search" id="search-field">
-            <button onclick="searchOne();">Search One</button>
-            <button onclick="searchAll();">Search All</button>
-            <button onclick="searchPart();">Search Part</button>
+            <input type="search" id="search-field" class="search-box" placeholder="search user here..." required>
+            <button onclick="searchOne();" class="search-btn">Search One</button>
+            <button onclick="searchAll();" class="search-btn">Search All</button>
+            <button onclick="searchPart();" class="search-btn">Search Part</button>
             <p id="record"></p>
-            <button onclick="goBack()" id="back-btn">Back to Profiles</button>
+            <button onclick="goBack()" id="back-btn" class="search-btn">Back to Profiles</button>
         </div>
         <!-- Container for the users data cards-->
         <div id="users"></div>
@@ -178,6 +204,7 @@
         
         // converting the stored data to an object
         internalUsers = JSON.parse(localStorage.getItem("internalUsers"));
+        originalInternalUsers = JSON.parse(localStorage.getItem("internalUsers"));
 
         // checking and assigning a new array if no data is in the local storage
         if(internalUsers == null) {
@@ -189,8 +216,10 @@
             // confirmation before deleting
             confirmDelete = confirm(`Do you really want to delete ${internalUsers[index].name}?`)
             if(confirmDelete === true) {
-                internalUsers.splice(index, 1);
-                localStorage.setItem("internalUsers", JSON.stringify(internalUsers));
+                originalIndex = originalInternalUsers.findIndex(x=>x.name == internalUsers[index].name)
+                originalInternalUsers.splice(originalIndex, 1);
+                localStorage.setItem("internalUsers", JSON.stringify(originalInternalUsers));
+                internalUsers = JSON.parse(localStorage.getItem("internalUsers"));
                 listUsers();
             }
         }
@@ -222,7 +251,7 @@
                         <label for="phone"><strong>Phone Number :</strong></label><input type="text" id="phone" value="${internalUsers[index].phone}" placeholder="${internalUsers[index].phone}">
                         <label for="email"><strong>Email Address :</strong></label><input type="text" id="email" value="${internalUsers[index].email}" placeholder="${internalUsers[index].email}" >
 				        
-				        <button type="submit" class="">Edit User</button>
+				        <button type="submit" class="" onclick>Edit User</button>
 				        <button type="button" class="" onclick="cancelForm()">Cancel</button>
                     </form>
                 </div>`;
@@ -248,14 +277,16 @@
 
         // declaring the edit user data function
         function editUser(index) {
+            originalIndex = originalInternalUsers.findIndex(x=>x.name ==internalUsers[index].name)
             // adding the updated form values to the old array object
-            internalUsers[index] = {
-            pics : document.getElementById("pics").value,
-            name : document.getElementById("name").value,
-            phone : document.getElementById("phone").value,
-            email : document.getElementById("email").value
+            originalInternalUsers[originalIndex] = {
+                pics : document.getElementById("pics").value,
+                name : document.getElementById("name").value,
+                phone : document.getElementById("phone").value,
+                email : document.getElementById("email").value
             }
-            localStorage.setItem("internalUsers", JSON.stringify(internalUsers));
+            localStorage.setItem("internalUsers", JSON.stringify(originalInternalUsers));
+            internalUsers = JSON.parse(localStorage.getItem("internalUsers"));
             listUsers();
         }
 
@@ -271,8 +302,8 @@
                 email : document.getElementById("email").value
             }
             // Adding the new Object to the old array
-            internalUsers.push(user);
-            localStorage.setItem("internalUsers", JSON.stringify(internalUsers));
+            originalInternalUsers.push(user);
+            localStorage.setItem("internalUsers", JSON.stringify(originalInternalUsers));
             listUsers();
         }
 
@@ -283,11 +314,25 @@
         // Declaring the Search function for one result
         function searchOne() {
             searchInput = document.getElementById('search-field').value.toUpperCase();
-            internalUsersObj = internalUsers.find(user=>user.name.toUpperCase()==searchInput);
-            internalUsers=[];
-            internalUsers.push(internalUsersObj);
-            document.getElementById("back-btn").style.display = "block";
-            listUsers();
+            if (!searchInput || searchInput.length <= 3) {
+                alert("please enter a name(minimum of four letters)")
+            } else {
+                internalUsersObj = internalUsers.find(user=>user.name.toUpperCase() === searchInput);
+                if(internalUsersObj == null || internalUsersObj == undefined) {
+                    document.getElementById("back-btn").style.display = "block";
+                    document.getElementById("record").innerHTML = `No record found for ${searchInput}`;
+                } else {
+                    internalUsers =[];
+                    internalUsers.push(internalUsersObj);
+                    if (internalUsers.length <= 1) {
+                        document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`;
+                    } else { 
+                        document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;
+                    }
+                    document.getElementById("back-btn").style.display = "block";
+                    listUsers();
+                }
+            } 
         }
 
         // Declaring the search function for all results
@@ -305,8 +350,8 @@
         
         // declaring the search function for part matches
         function searchPart(){
-            searchInput = document.getElementById("search-field").value;
-            internalUsers = internalUsers.filter(user=>user.name.includes(searchInput[0].toUpperCase()));
+            searchInput = document.getElementById("search-field").value.toUpperCase();
+            internalUsers = internalUsers.filter(user=>user.name.toUpperCase().includes(searchInput));
             // conditional ternary operator
             (internalUsers.length <= 1)? document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`:
             document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;

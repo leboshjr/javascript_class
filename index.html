@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="increaseCont">
+
+    </div>
+
+
+
+
+    <script>
+        var i = 0;
+        function increaseBtn(){
+            i++;
+            document.getElementById("count").innerHTML = i;
+        }
+
+        function rootApp(){
+            var root = `
+            <p>Counter:</p><span id="count"></span>
+            <button onclick="increaseBtn();">Increase</button>`;
+
+            document.getElementById("increaseCont").innerHTML = `${root}`;
+        }
+
+        rootApp();
+    </script>
+</body>
+</html>
