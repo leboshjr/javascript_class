@@ -315,7 +315,7 @@
         function searchOne() {
             searchInput = document.getElementById('search-field').value.toUpperCase();
             if (!searchInput || searchInput.length <= 3) {
-                alert("please enter a name(minimum of four letters)")
+                alert("please enter a name (minimum of four letters)")
             } else {
                 internalUsersObj = internalUsers.find(user=>user.name.toUpperCase() === searchInput);
                 if(internalUsersObj == null || internalUsersObj == undefined) {
@@ -338,25 +338,33 @@
         // Declaring the search function for all results
         function searchAll() {
             searchInput = document.getElementById('search-field').value.toUpperCase();
-            internalUsers = internalUsers.filter(user=>user.name.toUpperCase()==searchInput);
-            if (internalUsers.length <= 1) {
-                document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`;
-            } else { 
-                document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;
+            if (!searchInput || searchInput.length <= 3) {
+                alert("please enter a name (minimum of four letters)")
+            } else {
+                internalUsers = internalUsers.filter(user=>user.name.toUpperCase()==searchInput);
+                if (internalUsers.length <= 1) {
+                    document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`;
+                } else { 
+                    document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;
+                }
+                document.getElementById("back-btn").style.display = "block";
+                listUsers();
             }
-            document.getElementById("back-btn").style.display = "block";
-            listUsers();
         }
         
         // declaring the search function for part matches
         function searchPart(){
             searchInput = document.getElementById("search-field").value.toUpperCase();
-            internalUsers = internalUsers.filter(user=>user.name.toUpperCase().includes(searchInput));
-            // conditional ternary operator
-            (internalUsers.length <= 1)? document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`:
-            document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;
-            document.getElementById("back-btn").style.display = "block";
-            listUsers();
+            if (!searchInput || searchInput.length <= 3) {
+                alert("please enter a name (minimum of four letters)")
+            } else {
+                internalUsers = internalUsers.filter(user=>user.name.toUpperCase().includes(searchInput));
+                // conditional ternary operator
+                (internalUsers.length <= 1)? document.getElementById("record").innerHTML = `${internalUsers.length} record found for ${searchInput}`:
+                document.getElementById("record").innerHTML = `${internalUsers.length} records found for ${searchInput}`;
+                document.getElementById("back-btn").style.display = "block";
+                listUsers();
+            }
         }
 
         // declaring the function that displays array objects in the html document   
