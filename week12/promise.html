@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes pop {
+            0%   {width:0px; height: 0px;}
+            100% {width: 350px; height: 350px;}
+        }
+    </style>
+</head>
+<body>
+
+    <audio controls="controls" id="audio">
+
+    </audio>
+    <button onclick="drawCircle().then(writeText())">Circle</button>
+    <div id="circle">
+        <p id="text"></p>
+    </div>
+
+    <script>
+        // checkValue(8).then(function(){
+        //     // do something when successful
+
+        //     alert("we need to do something on this network");
+        // }).catch(function(error){
+        //     // do something when not
+        //     alert(error)
+        // })
+
+        // function checkValue(v){
+        //     return new Promise(function(resolve,reject){
+        //         if(v>10) {
+        //             resolve(alert("The number is greater than 10"))
+        //         } else {
+        //             reject(new Error ('Number too low'))
+        //         }
+        //     })
+        // }
+
+        // createAudio("https://www.bensound.com/bensound-music/bensound-ukulele.mp3").then(
+        //     playAudio()
+        // ).catch(function(error){
+        //     // do something
+        //     alert(error)
+        // })
+        
+        // function createAudio(audioSource) {
+        //     // create audio and source variables
+        //     return new Promise(function(resolve,reject){
+
+        //         // let audio = document.createElement('audio');
+        //         // // set audio attributes
+        //         // audio.setAttribute('controls','controls');
+        //         // audio.setAttribute('id','audio');
+
+        //         let source = document.createElement('source');
+        //         // add audio source
+        //         source.src = audioSource;
+        //         source.type = "audio/mpeg"
+
+        //         audio.appendChild(source);
+        //         // create audio on page load
+        //         audio.onload = () => resolve(audio);
+
+        //         audio.onerror = () => reject(new Error("Audio source not valid"));
+
+        //         document.body.append(audio);
+        //     })
+        // }
+        
+        // function playAudio(){
+        //     return new Promise (function(resolve,reject){
+        //         var audio = document.getElementById('audio');
+        //         resolve(audio.play());
+        //     })
+        // }
+
+        function drawCircle(){
+            return new Promise(function(resolve,reject){
+                circle = document.getElementById('circle');
+                document.getElementById('text').innerHTML = "";
+                circle.style.cssText= "display:flex; justify-content:center; align-items:center; background-color:violet;  border-radius:50%; position:fixed; margin: 1rem auto; animation:pop 1.5s ease-out forwards;"
+                document.body.appendChild(circle);
+            })
+            
+        }
+
+        function writeText(){
+           
+            setTimeout(() => {
+                var cont = document.getElementById('circle');
+                let text = "";
+                text = document.getElementById('text');
+                text.style.cssText = "color: #fff; font-size: 2rem;"
+                text.innerHTML = "TIIDELab...";
+                
+                cont.appendChild(text);
+            }, 2000);
+            // return new Promise (function(resolve,reject){
+            //     var cont = document.getElementById('circle');
+            //     var text = document.createElement('p');
+            //     cont.appendChild(text)
+            //     text.setAttribute('id', 'write');
+                
+            //     resolve(document.getElementById('write').innerHTML = "TIIDELab is great!");
+            // })
+        }
+
+
+    </script>
+</body>
+</html>

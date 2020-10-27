@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYSIWYG</title>
+    <style>
+        .comment-box {
+            width: 200px;
+            height: 300px;
+            overflow: scroll;
+            margin: 1rem;
+            padding: 2rem;
+        }
+        .comment-box p {
+            background-color: lightcoral;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        a {
+            padding: 0 0.8rem;
+            cursor: pointer;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="comment-box">
+        <p id="comment"></p>
+    </div>
+    <div>
+        <input type="color" id="selectColor" onblur="setColor()">
+        <a onclick="boldText();" class="bold">B</a>
+        <a onclick="italicText();" class="italic">I</a>
+        <a onclick="underlineText();" class="underline">U</a>
+        <select id="selectFont" onclick="setFont()">
+            <option value="12" selected>12</option>
+            <option value="14">14</option>
+            <option value="18">18</option>
+            <option value="24">24</option>
+            <option value="32">32</option>
+            <option value="40">40</option>
+            <option value="56">56</option>
+            <option value="68">68</option>
+            <option value="80">80</option>
+        </select>
+    </div>
+    <textarea name="" id="myText" cols="30" rows="10"></textarea>
+    <button onclick="postText();">Post</button>
+
+    <script>
+        var myText = document.getElementById("myText");
+        // textEditor = JSON.parse(localStorage.getItem("textEditor"));
+
+        // checking and assigning a new array if no data is in the local storage
+        // if(textEditor == null) {
+        //     textEditor = [];
+        // }
+
+        function setColor() {
+            newColor = document.getElementById("selectColor").value;
+            myText.setAttribute("style", `color: ${newColor}`);
+            // localStorage.setItem("textEditor", JSON.stringify(textEditor));
+        }
+
+        function boldText(){
+            if(myText.style.fontWeight === "bold") {
+                myText.style.fontWeight = "normal";
+            } else {
+                myText.style.fontWeight = "bold";
+            }
+            // localStorage.setItem("textEditor", JSON.stringify(textEditor));
+        }
+        function italicText(){
+            if(myText.style.fontStyle === "italic") {
+                myText.style.fontStyle = "normal";
+            } else {
+                myText.style.fontStyle = "italic";
+            }
+            // localStorage.setItem("textEditor", JSON.stringify(textEditor));
+        }
+        function underlineText(){
+            if(myText.style.textDecoration === "underline") {
+                myText.style.textDecoration = "none";
+            } else {
+                myText.style.textDecoration = "underline";
+            }
+            // localStorage.setItem("textEditor", JSON.stringify(textEditor));
+        }
+        function setFont() {
+            newFont = document.getElementById("selectFont").value;
+            myText.style.fontSize= `${newFont}px`;
+            // localStorage.setItem("textEditor", JSON.stringify(textEditor));
+        }
+        function postText(){
+            document.getElementById("comment").innerHTML = myText.value;
+        }
+    </script>
+</body>
+</html>

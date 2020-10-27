@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    
+    <input type="text" id="age" onblur="evaluateAge()">
+    <div id="errorMessage"></div>
+
+
+    <script>
+        // try {
+        //     // try a condition
+        // }
+        // catch(error) {
+        //     // act on error
+        // }
+
+        function evaluateAge (){
+            age = Number(document.getElementById('age').value);
+        
+            try {
+                if (age < 15) throw "You need to grow";
+                if (age > 40) throw "You are too old";
+            }
+            catch(error) {
+                input = document.getElementById("age");
+                input.classList.add("errorMessage");
+                document.getElementById("errorMessage").innerHTML = error
+            }
+        }
+        
+        /*
+            syntax error
+            eval error
+            type error
+            internal error
+            range error
+            reference error
+        */
+
+        // try {
+        //     // try condition
+        // } catch(err) {
+        //     if(err instanceof ReferenceError) {
+
+        //     } else if (err instanceof SyntaxError) {
+
+        //     } else if (err instanceof RangeError) {
+
+        //     }
+        // }
+
+        // try {
+        //     anotherFunction();
+        //     askMe();
+        // }
+        // catch(error) {
+        //     document.getElementById("errorMessage").innerHTML = error.message
+        // }
+        // finally {
+        //     setTimeout(() => {
+        //         ele = document.getElementById("errorMessage");
+        //     ele.style.backgroundColor = "#fff";
+        //     ele.innerHTML = " ";
+
+        //     }, 5000);
+            
+        // }
+
+        
+    </script>
+</body>
+</html>

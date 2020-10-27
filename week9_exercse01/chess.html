@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div>
+            
+        </div>
+        <script>
+            // to drag and drop an alt text
+            function drag(e){
+            e.dataTransfer.setData("ID", e.target.id)
+            }
+
+            function drop(e){
+                // elementId = e.target.id;
+                // element = document.getElementById(elementId);
+                data = e.dataTransfer.getData("ID");
+                // alert("The Id is " + data);
+                element = document.getElementById(data);
+                newElement = document.createElement("img");
+                newElement.src = element.src;
+                // container = document.getElementById("parentCont");
+                // container.appendChild(element);
+                e.target.appendChild(newElement);
+            }
+
+        </script>
+    </main>
+</body>
+</html>

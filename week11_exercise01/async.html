@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <button onclick="revealMsg();">Show Message</button>
+    </div>
+
+    <script>
+        // default program
+        // console.log('lets do this');
+        // setTimeout(() => {
+        //     console.log('can we start now');
+        // }, 3000);
+        // console.log('Are you sure?');
+        // console.log('Okay now');
+
+        // Callback Function
+        // loadJS("https://unpkg.com/sweetalert/dist/sweetalert.min.js");
+        // function loadJS(source, callback) {
+        //     let script = document.createElement('script');
+        //     script.src = source;
+        //     script.onload = function(){
+        //         return script;
+        //     }
+        //     script.onerror = function(){
+        //         return new Error("script cannot be loaded");
+        //     }
+        //     document.head.appendChild(script)
+        // }
+        // createAudio("https://www.bensound.com/bensound-music/bensound-ukulele.mp3", function(){
+        //     playAudio();
+        // })
+        
+        // function createAudio(audioSource, callback) {
+        //     // create audio and source variables
+        //     let audio = document.createElement('audio');
+        //     let source = document.createElement('source');
+
+        //     // set audio attributes
+        //     audio.setAttribute('controls','controls');
+        //     audio.setAttribute('id','audio');
+
+        //     // add audio source
+        //     source.src = audioSource;
+        //     audio.appendChild(source);
+
+        //     // create audio on page load
+        //     audio.onload = function(){
+        //         return audio;
+        //     }
+        //     // output error when 
+        //     audio.onerror = function(){
+        //         return new Error("audio cannot be loaded");
+        //     }
+        //     document.body.appendChild(audio);
+        //     // callback();
+        // }
+        // function playAudio(){
+        //     document.getElementById('audio').play();
+        // }
+
+        function revealMsg() {
+            textBox = document.createElement('div');
+            document.body.appendChild(textBox);
+            textBox.setAttribute('id', 'text-box')
+            textBox.style.cssText = "background:blue; width:200px; height:200px; color:white; border-radius: 50%; transition: all 0.8s ease-in-out";
+            setTimeout(() => {
+                addText();
+            }, 1000);
+        }
+        function addText(){
+            var text = `<p>TIIDELab is amazing</p>`;
+            document.getElementById("text-box").innerHTML = `${text}`;
+        }
+    </script>
+</body>
+</html>

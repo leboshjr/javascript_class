@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+        }
+        .drop-items{
+            text-align: center;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="parentCont" style="width:300px; height:300px; background-color: red;" ondragover="droppAble(event)" ondrop="drop(event)"></div>
+        <div id="parentCont2" style="width:300px; height:300px; background-color: blue;" ondragover="droppAble(event)" ondrop="drop(event)"></div>
+    </div>
+
+    <div class="drop-items">
+        <img src="./1.jpg" id="img1" onclick="appendImage(event)" draggable="true" ondragstart="drag(event)" alt="Jane">
+        <img src="./3.jpg" id="img2" onclick="appendImage(event)" draggable="true" ondragstart="drag(event)" alt="Kachi">
+        <button id="fellows" onclick="appendImage(event)" draggable="true" ondragstart="drag(event)">Get My Id</button>
+    </div>
+
+
+    <script>
+        function droppAble(e) {
+            e.preventDefault();
+        }
+
+        function drag(e){
+            e.dataTransfer.setData("ID", e.target.id);
+            e.dataTransfer.setData("name", e.target.alt);
+        }
+
+        function drop(e){
+            // elementId = e.target.id;
+            // element = document.getElementById(elementId);
+            data = e.dataTransfer.getData("ID");
+            name = e.dataTransfer.getData("name");
+            // alert("The Id is " + data);
+            element = document.getElementById(data);
+            newElement = document.createElement("span");
+            newElement.innerText = element.alt;
+            container = document.getElementById("parentCont");
+            container.appendChild(newElement);
+            // e.target.appendChild(newElement);
+        }
+
+        function appendImage(e) {
+            elementId = e.target.id;
+            elementTagName = e.target.tagName;
+            element = document.getElementById(elementId);
+            containerId = e.Id;
+            container = document.getElementById(containerId);
+            container.appendChild(element);
+        }
+    </script>
+
+</body>
+</html>

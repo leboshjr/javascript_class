@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+        }
+        img {
+            width: 20%;
+        }
+        .company-text {
+            border: 2px dotted blue;
+            padding: 20px;
+            text-align: center;
+        }
+        .company-t {
+            color: purple;
+            font-weight: bold;
+            letter-spacing: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas" ondblclick="deleteElement(event);"></div>
+    <img src="1.jpg" id="img1" ondblclick="deleteElement(event);" alt="">
+    <span>TIIDELab is great!</span>
+    <p id="p1">This is a google container</p>
+    <p id="p2">This is a Tech-specialist container</p>
+
+
+
+    <script>
+
+        element = document.getElementsByTagName("span")[0].style.color = "green";
+        // multiple properties
+        /*1. cssText
+        syntax : element.style.cssText = "property1:value1; property2:value2; property3:value3;"
+        */
+        document.getElementById("p1").style.cssText= "border:5px solid pink; color: green; padding: 20px; text-align: center;"
+        /*2. classList
+        syntax : element.classList.add("className");
+        */
+        p2 = document.getElementById("p2");
+        p2.classList.add("company-text");
+        p2.classList.add("company-t");
+        
+        function deleteElement(e){
+            if(confirm("Are you sure you want to delete this element?")) {
+                // get the element ID
+                elementId = e.target.id;
+                // get the element
+                ele = document.getElementById(elementId);
+                // get the parent
+                parent = ele.parentNode;
+                // remove child from the parent
+                parent.removeChild(ele);
+            }
+        }
+    </script>
+</body>
+</html>
