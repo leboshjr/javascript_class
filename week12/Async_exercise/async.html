@@ -19,7 +19,7 @@
     
     
 
-    <button onclick="drawCircle()">Circle</button>
+    <button onclick="start()">Circle</button>
     <div id="circle">
         <p id="text"></p>
     </div>
@@ -28,12 +28,13 @@
      
     
 
-        playVideo("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
+       playVideo("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
            
         async function createVideo(videoSource) {
             let source = document.createElement('source');
                 // add video source
             source.src = videoSource;
+            source.setAttribute('id','video')
             source.type = "video/mp4"
             try {
                   await video.onload;
@@ -47,6 +48,8 @@
         async function playVideo(videoSource){
            await createVideo(videoSource);
            var video = document.getElementById('video');
+           video.height = "270";
+           video.width = "350";
            video.play();
         }
 
@@ -56,12 +59,19 @@
             circle.style.cssText= "display:flex; justify-content:center; align-items:center; background-color:violet;  border-radius:50%; position:fixed; margin: 1rem auto; animation:pop 1.5s ease-out forwards;"
             document.body.appendChild(circle);
      
-           // await writeText();
+           //await writeText();
             
         }
 
+        async function start() {
+            await drawCircle();
+            await addEventListener("animationend", function handler() {
+                writeText();
+            });
+        }
+
         async function writeText(){
-            // await drawCircle();
+           // await drawCircle();
        
              var cont = document.getElementById('circle');
              let text = "";
@@ -69,22 +79,10 @@
              text.style.cssText = "color: #fff; font-size: 2rem;"
              text.innerHTML = "TIIDELab...";
                 
-             await cont.appendChild(text);
+             cont.appendChild(text);
         }
 
 
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
