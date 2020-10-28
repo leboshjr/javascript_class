@@ -50,26 +50,26 @@
            video.play();
         }
 
-        async function drawCircle(){
+        function drawCircle(){
             circle = document.getElementById('circle');
             document.getElementById('text').innerHTML = "";
             circle.style.cssText= "display:flex; justify-content:center; align-items:center; background-color:violet;  border-radius:50%; position:fixed; margin: 1rem auto; animation:pop 1.5s ease-out forwards;"
             document.body.appendChild(circle);
      
-            await writeText();
+            // await writeText();
             
         }
 
-        function writeText(){
-           
+        async function writeText(){
+             await drawCircle();
        
-                var cont = document.getElementById('circle');
-                let text = "";
-                text = document.getElementById('text');
-                text.style.cssText = "color: #fff; font-size: 2rem;"
-                text.innerHTML = "TIIDELab...";
+             var cont = document.getElementById('circle');
+             let text = "";
+             text = document.getElementById('text');
+             text.style.cssText = "color: #fff; font-size: 2rem;"
+             text.innerHTML = "TIIDELab...";
                 
-                cont.appendChild(text);
+             cont.appendChild(text);
         }
 
 
