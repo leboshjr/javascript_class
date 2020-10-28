@@ -19,7 +19,7 @@
     
     
 
-    <button onclick="drawCircle().then(writeText())">Circle</button>
+    <button onclick="drawCircle()">Circle</button>
     <div id="circle">
         <p id="text"></p>
     </div>
@@ -28,52 +28,41 @@
      
     
 
-        createVideo("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4").then(
-            playVideo()
-        ).catch(function(error){
-           // do something
-          alert(error)
-        })
-        
-        function createVideo(videoSource) {
-      
-            return new Promise(function(resolve,reject){
-
-                let source = document.createElement('source');
+        playVideo("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
+           
+        async function createVideo(videoSource) {
+            let source = document.createElement('source');
                 // add video source
-             source.src = videoSource;
-             source.type = "video/mp4"
-
-             video.appendChild(source);
-             // create video on page load
-             video.onload = () => resolve(video);
-
-             video.onerror = () => reject(new Error("Video source not valid"));
-
-    
-             })
+            source.src = videoSource;
+            source.type = "video/mp4"
+            try {
+                  await video.onload;
+                  video.appendChild(source);
+            } catch(error) {
+                  alert(error)
+            }
+             
         }
         
-        function playVideo(){
-           return new Promise (function(resolve,reject){
-               var video = document.getElementById('video');
-               resolve(video.play());
-           })
+        async function playVideo(videoSource){
+           await createVideo(videoSource);
+           var video = document.getElementById('video');
+           video.play();
         }
 
-        function drawCircle(){
-            return new Promise(function(resolve,reject){
-                circle = document.getElementById('circle');
-                document.getElementById('text').innerHTML = "";
-                circle.style.cssText= "display:flex; justify-content:center; align-items:center; background-color:violet;  border-radius:50%; position:fixed; margin: 1rem auto; animation:pop 1.5s ease-out forwards;"
-                document.body.appendChild(circle);
-            })
+        async function drawCircle(){
+            circle = document.getElementById('circle');
+            document.getElementById('text').innerHTML = "";
+            circle.style.cssText= "display:flex; justify-content:center; align-items:center; background-color:violet;  border-radius:50%; position:fixed; margin: 1rem auto; animation:pop 1.5s ease-out forwards;"
+            document.body.appendChild(circle);
+     
+            await writeText();
             
         }
 
         function writeText(){
            
-            setTimeout(() => {
+       
                 var cont = document.getElementById('circle');
                 let text = "";
                 text = document.getElementById('text');
@@ -81,15 +70,6 @@
                 text.innerHTML = "TIIDELab...";
                 
                 cont.appendChild(text);
-            }, 2000);
-            // return new Promise (function(resolve,reject){
-            //     var cont = document.getElementById('circle');
-            //     var text = document.createElement('p');
-            //     cont.appendChild(text)
-            //     text.setAttribute('id', 'write');
-                
-            //     resolve(document.getElementById('write').innerHTML = "TIIDELab is great!");
-            // })
         }
 
 
